@@ -1,11 +1,11 @@
 <package xmlns="http://expath.org/ns/pkg"
          name="apb.image.metadata"
-         abbrev="contents"
+         abbrev="content"
          version="1.0.0"
          spec="1.0">
 
    <title>Extract image metadata using http://drewnoakes.com/code/exif/</title>
-   <dependency processor="basex"/>
+   <dependency processor="basex" version="7.7"/>
    <xquery> 
      <namespace>apb.image.metadata</namespace>
      <file>metadata-extractor.xqm</file>

@@ -20,10 +20,10 @@ declare namespace ArrayList="java:java.util.ArrayList";
 
 
 (:~ extract metadata 
-: @param path
-: @result metadata wrapping set of tag elements with name dir type attributes 
-        and text containing value. empty if error
-:)
+ : @param path source file
+ : @result metadata wrapping set of tag elements with @name @dir @type attributes 
+ :        and text containing value. empty if error
+ :)
 declare function read($path as xs:string) as element(metadata)
 {
    try {
@@ -79,8 +79,8 @@ declare %private function src($path){
 };
 
 (:~ remove bad chars from java string
-: need more eg [^\x09\x0A\x0D\x20-\uD7FF\uE000-\uFFFD\u10000-u10FFFF]
-: @see http://stackoverflow.com/a/14323524
+ : need more eg [^\x09\x0A\x0D\x20-\uD7FF\uE000-\uFFFD\u10000-u10FFFF]
+ : @see http://stackoverflow.com/a/14323524
  :)
 declare %private function clean-string($s){
     let $t:= fn:string-to-codepoints($s)
@@ -96,7 +96,9 @@ declare  %private function java-for-each($items,$fn)
    return $fn($s)
 };
 
-(:~ convert date like "2010:06:30 14:26:25" to iso format :)
+(:~ 
+ :convert date like "2010:06:30 14:26:25" to iso format 
+ :)
 declare function isodate($value as xs:string) as xs:string
 {
     if (fn:matches($value,"^\d\d\d\d:\d\d:\d\d \d\d:\d\d:\d\d$"))
@@ -105,9 +107,9 @@ declare function isodate($value as xs:string) as xs:string
 };
 
 (:~ 
-: convert degrees minutes seconds to decimal degrees
-: @param dms string like 45.0� 1.0' 46.32869861594543"
-:)
+ : convert degrees minutes seconds to decimal degrees
+ : @param dms string like 45.0� 1.0' 46.32869861594543"
+ :)
 declare function geodecimal($dms as xs:string) as xs:double
 {
   let $p:= fn:tokenize($dms," ")!fn:number(fn:substring(.,1,fn:string-length(.)-1))
@@ -115,7 +117,10 @@ declare function geodecimal($dms as xs:string) as xs:double
 };
 
 
-(:~ extract lat and long :)
+(:~ 
+ :process gps elements 
+ : @return geo tag with lat and long children
+ :)
 declare function geo($metadata as element(metadata)) as element(geo)?
 {
  let $g:=function($name as xs:string){$metadata/tag[@name=$name and @dir="GPS"]}
@@ -138,7 +143,9 @@ declare function geo($metadata as element(metadata)) as element(geo)?
             ()       
 };
 
-(:~ extract keywords :)
+(:~ 
+ :extract keywords and split into seperate elements
+ :)
 declare function keywords($metadata as element(metadata)) as element(keywords)?
 {
   let $keywords:=$metadata/tag[@name="Keywords" and @dir="Iptc"]
@@ -151,8 +158,8 @@ declare function keywords($metadata as element(metadata)) as element(keywords)?
 };
 
 
-(:~ core stuff
-: width,height,datetaken,model,caption
+(:~ extract core stuff
+ : width,height,datetaken,model,caption
  :)
 declare function core($metadata as element(metadata)) as element()*
 {

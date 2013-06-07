@@ -1,6 +1,7 @@
 (: create o/ps
  : xar package and xqdoc
  :)
+
  declare function local:read($item){
   let $f:=fn:resolve-uri($item/@src)
   return if(fn:name($item)="text") then
@@ -13,6 +14,6 @@
 let $files:=$pack/*
 let $zip   := archive:create( $files/@dest/fn:string(), $files ! local:read(.)) 
 return ( file:write-binary(resolve-uri($pack/@dest),$zip)
-       (:  ,file:write(resolve-uri("dist/xqdoc.xml"),inspect:xqdoc(resolve-uri("src/metadata-extractor.xqm")))
-     :) 
+         ,file:write(resolve-uri("dist/xqdoc.xml"),inspect:xqdoc(resolve-uri("main/src/content/metadata-extractor.xqm")))
+     
 )

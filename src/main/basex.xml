@@ -1,5 +1,5 @@
 <package xmlns="http://www.basex.org/modules/pkg">
    <jar>metadata-extractor-2.6.4.jar</jar>
    <jar>xmpcore.jar</jar>
-   <class>com.drew.metadata.Me</class>
+   <class>com.drew.metadata.Metadata</class>
 </package>

@@ -1,4 +1,9 @@
+(:~
+ : unit tests for metadata module
+ :)
 import module namespace metadata = 'apb.image.metadata';
+
+declare variable $pic1:=resolve-uri("simple.jpg"); 
 
 (:~ Initializing function, which is called once before all tests. :)
 declare
@@ -24,47 +29,13 @@ declare
   function local:after() { ()
 };
  
-(:~ Function demonstrating a successful test. :)
+(:~ we get tags :)
 declare
   %unit:test
   function local:success-function() {
-  unit:assert(1 + 2 = 3)
+  let $meta:=metadata:read($pic1)
+  return unit:assert($meta/tag)
 };
- 
-(:~ Function demonstrating a failure. :)
-declare
-  %unit:test
-  function local:failure-function() {
-  unit:assert(4 + 5 = 6)
-};
- 
-(:~ Function demonstrating an expected error. :)
-declare
-  %unit:test("expected", "FORG0001")
-  function local:expected-success() {
-  ()
-};
- 
-(:~ Function demonstrating an expected error. :)
-declare
-  %unit:test("expected", "FORG0001")
-  function local:expected-error() {
-  1 + <a/>
-};
- 
-(:~ Function demonstrating an error. :)
-declare
-  %unit:test
-  function local:error-function() {
-  1 + <a/>
-};
- 
-(:~ Skipping a test. :)
-declare
-  %unit:test %unit:ignore("Skipped!")
-  function local:skipped-function() {
-  ()
-};
- 
-(: run all tests :)
-unit:test()
+  
+(: run all tests  :)
+unit:test() 

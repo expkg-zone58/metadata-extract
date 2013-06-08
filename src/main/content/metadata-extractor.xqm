@@ -69,13 +69,14 @@ declare %private function tag($tag) as element(tag)
 : http NOT WORKING
 :)
 declare %private function src($path){
-  if(fn:starts-with($path,"http:/")) 
-  then 
+  if(fn:starts-with($path,"http:/")) then 
       let $url:=URL:new($path)
       let $url:=fn:trace($url,"metadata src: ")
       return URL:openStream($url)
     
-  else File:new($path)
+  else 
+      let $path:=file:path-to-native($path)
+      return File:new($path)
 };
 
 (:~ remove bad chars from java string

@@ -4,10 +4,7 @@
 
  declare function local:read($item){
   let $f:=fn:resolve-uri($item/@src)
-  return if(fn:name($item)="text") then
-            file:read-text($f)
-         else
-            file:read-binary($f)
+  return  file:read-binary($f)
  };
  
  let $pack:=doc(resolve-uri("package.xml"))/*

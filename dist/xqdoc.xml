@@ -1,0 +1,235 @@
+<xqdoc:xqdoc xmlns:xqdoc="http://www.xqdoc.org/1.0">
+  <xqdoc:control>
+    <xqdoc:date>2013-06-07T22:04:49.721+01:00</xqdoc:date>
+    <xqdoc:version>1.1</xqdoc:version>
+  </xqdoc:control>
+  <xqdoc:module type="library">
+    <xqdoc:uri>apb.image.metadata</xqdoc:uri>
+    <xqdoc:name>metadata-extractor.xqm</xqdoc:name>
+    <xqdoc:comment>
+      <xqdoc:description>return image metadata as xml using http://drewnoakes.com/code/exif/
+usage: metadata:read('C:/temp/apic.jpg')
+xml format based on xmlcalabash1
+https://github.com/ndw/xmlcalabash1/blob/master/src/com/xmlcalabash/extensions/MetadataExtractor.java
+includes utility functions for post processing some tags such as GPS information.</xqdoc:description>
+      <xqdoc:author>andy bunce</xqdoc:author>
+    </xqdoc:comment>
+  </xqdoc:module>
+  <xqdoc:namespaces>
+    <xqdoc:namespace prefix="metadata" uri="apb.image.metadata"/>
+    <xqdoc:namespace prefix="File" uri="java:java.io.File"/>
+    <xqdoc:namespace prefix="URL" uri="java:java.net.URL"/>
+    <xqdoc:namespace prefix="URLConnection" uri="java.net.URLConnection"/>
+    <xqdoc:namespace prefix="Tag" uri="java:com.drew.metadata.Tag"/>
+    <xqdoc:namespace prefix="ImageMetadataReader" uri="java:com.drew.imaging.ImageMetadataReader"/>
+    <xqdoc:namespace prefix="Metadata" uri="java:com.drew.metadata.Metadata"/>
+    <xqdoc:namespace prefix="Directory" uri="java:com.drew.metadata.Directory"/>
+    <xqdoc:namespace prefix="ArrayList" uri="java:java.util.ArrayList"/>
+  </xqdoc:namespaces>
+  <xqdoc:imports/>
+  <xqdoc:variables/>
+  <xqdoc:functions>
+    <xqdoc:function arity="1">
+      <xqdoc:comment>
+        <xqdoc:description>extract metadata</xqdoc:description>
+        <xqdoc:param>path source file</xqdoc:param>
+        <xqdoc:custom tag="result">metadata wrapping set of tag elements with @name @dir @type attributes 
+       and text containing value. empty if error</xqdoc:custom>
+      </xqdoc:comment>
+      <xqdoc:name>read</xqdoc:name>
+      <xqdoc:signature>declare function read($path as xs:string) as element(metadata)</xqdoc:signature>
+      <xqdoc:parameters>
+        <xqdoc:parameter>
+          <xqdoc:name>path</xqdoc:name>
+          <xqdoc:type>xs:string</xqdoc:type>
+        </xqdoc:parameter>
+      </xqdoc:parameters>
+      <xqdoc:return>
+        <xqdoc:type>element(metadata)</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+    <xqdoc:function arity="1">
+      <xqdoc:name>tags</xqdoc:name>
+      <xqdoc:signature>declare function tags($path as xs:string) as element(tag)*</xqdoc:signature>
+      <xqdoc:parameters>
+        <xqdoc:parameter>
+          <xqdoc:name>path</xqdoc:name>
+          <xqdoc:type>xs:string</xqdoc:type>
+        </xqdoc:parameter>
+      </xqdoc:parameters>
+      <xqdoc:return>
+        <xqdoc:type occurrence="*">element(tag)</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+    <xqdoc:function arity="1">
+      <xqdoc:comment>
+        <xqdoc:description>tags in directory</xqdoc:description>
+      </xqdoc:comment>
+      <xqdoc:name>dir</xqdoc:name>
+      <xqdoc:annotations>
+        <xqdoc:annotation name="private"/>
+      </xqdoc:annotations>
+      <xqdoc:signature>declare %private function dir($dir) as element(tag)*</xqdoc:signature>
+      <xqdoc:parameters>
+        <xqdoc:parameter>
+          <xqdoc:name>dir</xqdoc:name>
+        </xqdoc:parameter>
+      </xqdoc:parameters>
+      <xqdoc:return>
+        <xqdoc:type occurrence="*">element(tag)</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+    <xqdoc:function arity="1">
+      <xqdoc:comment>
+        <xqdoc:description>extract a single tag</xqdoc:description>
+      </xqdoc:comment>
+      <xqdoc:name>tag</xqdoc:name>
+      <xqdoc:annotations>
+        <xqdoc:annotation name="private"/>
+      </xqdoc:annotations>
+      <xqdoc:signature>declare %private function tag($tag) as element(tag)</xqdoc:signature>
+      <xqdoc:parameters>
+        <xqdoc:parameter>
+          <xqdoc:name>tag</xqdoc:name>
+        </xqdoc:parameter>
+      </xqdoc:parameters>
+      <xqdoc:return>
+        <xqdoc:type>element(tag)</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+    <xqdoc:function arity="1">
+      <xqdoc:comment>
+        <xqdoc:description>file or stream for http
+: http NOT WORKING</xqdoc:description>
+      </xqdoc:comment>
+      <xqdoc:name>src</xqdoc:name>
+      <xqdoc:annotations>
+        <xqdoc:annotation name="private"/>
+      </xqdoc:annotations>
+      <xqdoc:signature>declare %private function src($path)</xqdoc:signature>
+      <xqdoc:parameters>
+        <xqdoc:parameter>
+          <xqdoc:name>path</xqdoc:name>
+        </xqdoc:parameter>
+      </xqdoc:parameters>
+    </xqdoc:function>
+    <xqdoc:function arity="1">
+      <xqdoc:comment>
+        <xqdoc:description>remove bad chars from java string
+need more eg [^\x09\x0A\x0D\x20-\uD7FF\uE000-\uFFFD\u10000-u10FFFF]</xqdoc:description>
+        <xqdoc:see>http://stackoverflow.com/a/14323524</xqdoc:see>
+      </xqdoc:comment>
+      <xqdoc:name>clean-string</xqdoc:name>
+      <xqdoc:annotations>
+        <xqdoc:annotation name="private"/>
+      </xqdoc:annotations>
+      <xqdoc:signature>declare %private function clean-string($s)</xqdoc:signature>
+      <xqdoc:parameters>
+        <xqdoc:parameter>
+          <xqdoc:name>s</xqdoc:name>
+        </xqdoc:parameter>
+      </xqdoc:parameters>
+    </xqdoc:function>
+    <xqdoc:function arity="2">
+      <xqdoc:comment>
+        <xqdoc:description>apply function fn to each item in java list thing</xqdoc:description>
+      </xqdoc:comment>
+      <xqdoc:name>java-for-each</xqdoc:name>
+      <xqdoc:annotations>
+        <xqdoc:annotation name="private"/>
+      </xqdoc:annotations>
+      <xqdoc:signature>declare %private function java-for-each($items, $fn)</xqdoc:signature>
+      <xqdoc:parameters>
+        <xqdoc:parameter>
+          <xqdoc:name>items</xqdoc:name>
+        </xqdoc:parameter>
+        <xqdoc:parameter>
+          <xqdoc:name>fn</xqdoc:name>
+        </xqdoc:parameter>
+      </xqdoc:parameters>
+    </xqdoc:function>
+    <xqdoc:function arity="1">
+      <xqdoc:comment>
+        <xqdoc:description>convert date like "2010:06:30 14:26:25" to iso format</xqdoc:description>
+      </xqdoc:comment>
+      <xqdoc:name>isodate</xqdoc:name>
+      <xqdoc:signature>declare function isodate($value as xs:string) as xs:string</xqdoc:signature>
+      <xqdoc:parameters>
+        <xqdoc:parameter>
+          <xqdoc:name>value</xqdoc:name>
+          <xqdoc:type>xs:string</xqdoc:type>
+        </xqdoc:parameter>
+      </xqdoc:parameters>
+      <xqdoc:return>
+        <xqdoc:type>xs:string</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+    <xqdoc:function arity="1">
+      <xqdoc:comment>
+        <xqdoc:description>convert degrees minutes seconds to decimal degrees</xqdoc:description>
+        <xqdoc:param>dms string like 45.0� 1.0' 46.32869861594543"</xqdoc:param>
+      </xqdoc:comment>
+      <xqdoc:name>geodecimal</xqdoc:name>
+      <xqdoc:signature>declare function geodecimal($dms as xs:string) as xs:double</xqdoc:signature>
+      <xqdoc:parameters>
+        <xqdoc:parameter>
+          <xqdoc:name>dms</xqdoc:name>
+          <xqdoc:type>xs:string</xqdoc:type>
+        </xqdoc:parameter>
+      </xqdoc:parameters>
+      <xqdoc:return>
+        <xqdoc:type>xs:double</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+    <xqdoc:function arity="1">
+      <xqdoc:comment>
+        <xqdoc:description>process gps elements</xqdoc:description>
+        <xqdoc:return>geo tag with lat and long children</xqdoc:return>
+      </xqdoc:comment>
+      <xqdoc:name>geo</xqdoc:name>
+      <xqdoc:signature>declare function geo($metadata as element(metadata)) as element(geo)?</xqdoc:signature>
+      <xqdoc:parameters>
+        <xqdoc:parameter>
+          <xqdoc:name>metadata</xqdoc:name>
+          <xqdoc:type>element(metadata)</xqdoc:type>
+        </xqdoc:parameter>
+      </xqdoc:parameters>
+      <xqdoc:return>
+        <xqdoc:type occurrence="?">element(geo)</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+    <xqdoc:function arity="1">
+      <xqdoc:comment>
+        <xqdoc:description>extract keywords and split into seperate elements</xqdoc:description>
+      </xqdoc:comment>
+      <xqdoc:name>keywords</xqdoc:name>
+      <xqdoc:signature>declare function keywords($metadata as element(metadata)) as element(keywords)?</xqdoc:signature>
+      <xqdoc:parameters>
+        <xqdoc:parameter>
+          <xqdoc:name>metadata</xqdoc:name>
+          <xqdoc:type>element(metadata)</xqdoc:type>
+        </xqdoc:parameter>
+      </xqdoc:parameters>
+      <xqdoc:return>
+        <xqdoc:type occurrence="?">element(keywords)</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+    <xqdoc:function arity="1">
+      <xqdoc:comment>
+        <xqdoc:description>extract core stuff
+width,height,datetaken,model,caption</xqdoc:description>
+      </xqdoc:comment>
+      <xqdoc:name>core</xqdoc:name>
+      <xqdoc:signature>declare function core($metadata as element(metadata)) as element()*</xqdoc:signature>
+      <xqdoc:parameters>
+        <xqdoc:parameter>
+          <xqdoc:name>metadata</xqdoc:name>
+          <xqdoc:type>element(metadata)</xqdoc:type>
+        </xqdoc:parameter>
+      </xqdoc:parameters>
+      <xqdoc:return>
+        <xqdoc:type occurrence="*">element()</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+  </xqdoc:functions>
+</xqdoc:xqdoc>

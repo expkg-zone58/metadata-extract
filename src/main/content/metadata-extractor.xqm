@@ -164,7 +164,10 @@ declare function keywords($metadata as element(metadata)) as element(keywords)?
  :)
 declare function core($metadata as element(metadata)) as element()*
 {
-    let $d:=$metadata/tag[@name="Date/Time" and @dir="Exif IFD0"]
+    let $d1:=$metadata/tag[@name="Date/Time" and @dir="Exif IFD0"]
+    let $d2:=$metadata/tag[@name="Date/Time Original"  and @dir="Exif SubIFD"]
+    let $d3:=$metadata/tag[@name="Date/Time Digitized" and @dir="Exif SubIFD" ]
+    
     let $c:=$metadata/tag[@name="Caption/Abstract" and @dir="Iptc"]
     let $m:=$metadata/tag[@name="Model" and @dir="Exif IFD0"] 
     (: image size 
@@ -174,7 +177,9 @@ declare function core($metadata as element(metadata)) as element()*
     let $w:=$metadata/tag[@name="Image Width" and @dir="Jpeg"]/fn:substring-before(.," ")
     let $h:=$metadata/tag[@name="Image Height" and @dir="Jpeg"]/fn:substring-before(.," ")
 
-    return (if($d castable as xs:dateTime) then <datetaken>{$d/fn:string()}</datetaken> else (),
+    return (if($d1 castable as xs:dateTime) then <dateedit>{$d1/fn:string()}</dateedit> else (),
+            if($d2 castable as xs:dateTime) then <datetaken>{$d2/fn:string()}</datetaken> else (),
+            if($d3 castable as xs:dateTime) then <datedigitized>{$d3/fn:string()}</datedigitized> else (),
             if($c) then <caption>{$c/fn:string()}</caption> else (),
             if($m) then <model>{$m/fn:string()}</model> else (),
             if($w and $h)  then (<width>{$w}</width>,<height>{$h}</height>) else ()

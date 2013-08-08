@@ -1,6 +1,6 @@
 <xqdoc:xqdoc xmlns:xqdoc="http://www.xqdoc.org/1.0">
   <xqdoc:control>
-    <xqdoc:date>2013-06-08T22:24:37.214+01:00</xqdoc:date>
+    <xqdoc:date>2013-08-08T22:06:56.096+01:00</xqdoc:date>
     <xqdoc:version>1.1</xqdoc:version>
   </xqdoc:control>
   <xqdoc:module type="library">
@@ -100,7 +100,7 @@ includes utility functions for post processing some tags such as GPS information
     <xqdoc:function arity="1">
       <xqdoc:comment>
         <xqdoc:description>file or stream for http
-: http NOT WORKING</xqdoc:description>
+http NOT WORKING</xqdoc:description>
       </xqdoc:comment>
       <xqdoc:name>src</xqdoc:name>
       <xqdoc:annotations>
@@ -112,6 +112,9 @@ includes utility functions for post processing some tags such as GPS information
           <xqdoc:name>path</xqdoc:name>
         </xqdoc:parameter>
       </xqdoc:parameters>
+      <xqdoc:return>
+        <xqdoc:type occurrence="*">item()</xqdoc:type>
+      </xqdoc:return>
     </xqdoc:function>
     <xqdoc:function arity="1">
       <xqdoc:comment>
@@ -129,6 +132,9 @@ need more eg [^\x09\x0A\x0D\x20-\uD7FF\uE000-\uFFFD\u10000-u10FFFF]</xqdoc:descr
           <xqdoc:name>s</xqdoc:name>
         </xqdoc:parameter>
       </xqdoc:parameters>
+      <xqdoc:return>
+        <xqdoc:type occurrence="*">item()</xqdoc:type>
+      </xqdoc:return>
     </xqdoc:function>
     <xqdoc:function arity="2">
       <xqdoc:comment>
@@ -147,6 +153,9 @@ need more eg [^\x09\x0A\x0D\x20-\uD7FF\uE000-\uFFFD\u10000-u10FFFF]</xqdoc:descr
           <xqdoc:name>fn</xqdoc:name>
         </xqdoc:parameter>
       </xqdoc:parameters>
+      <xqdoc:return>
+        <xqdoc:type occurrence="*">item()</xqdoc:type>
+      </xqdoc:return>
     </xqdoc:function>
     <xqdoc:function arity="1">
       <xqdoc:comment>

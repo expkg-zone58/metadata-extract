@@ -22,7 +22,7 @@ The library is packaged in the [EXpath](http://expath.org/spec/pkg) xar format w
 the drewnoakes jars included. It can be installed into the BaseX repository by 
 executing the command:
 ````
-repo:install('http://apb2006.github.io/metadata-extract/dist/metadata-extractor.zar')
+repo:install('https://github.com/expkg-zone58/metadata-extract/releases/download/v1.0.5/metadata-extractor-1.0.5.xar')
 ````
 # Tests
 The `test.xq` script uses the BaseX [Unit module](http://docs.basex.org/wiki/Unit_Module)

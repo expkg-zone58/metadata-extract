@@ -6,8 +6,8 @@ xquery version "3.0" encoding "UTF-8";
  : includes utility functions for post processing some tags such as GPS information.
  : @author andy bunce
  :)
-module namespace metadata = 'apb.image.metadata';
-declare default function namespace 'apb.image.metadata'; 
+module namespace metadata = 'expkg-zone58.image.metadata';
+declare default function namespace 'expkg-zone58.image.metadata'; 
 
 declare namespace File="java:java.io.File";
 declare namespace URL="java:java.net.URL";

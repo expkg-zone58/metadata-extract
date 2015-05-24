@@ -1,10 +1,10 @@
 <xqdoc:xqdoc xmlns:xqdoc="http://www.xqdoc.org/1.0">
   <xqdoc:control>
-    <xqdoc:date>2013-08-08T22:06:56.096+01:00</xqdoc:date>
+    <xqdoc:date>2015-05-24T17:20:34.43+01:00</xqdoc:date>
     <xqdoc:version>1.1</xqdoc:version>
   </xqdoc:control>
   <xqdoc:module type="library">
-    <xqdoc:uri>apb.image.metadata</xqdoc:uri>
+    <xqdoc:uri>expkg-zone58.image.metadata</xqdoc:uri>
     <xqdoc:name>metadata-extractor.xqm</xqdoc:name>
     <xqdoc:comment>
       <xqdoc:description>return image metadata as xml using http://drewnoakes.com/code/exif/
@@ -16,7 +16,7 @@ includes utility functions for post processing some tags such as GPS information
     </xqdoc:comment>
   </xqdoc:module>
   <xqdoc:namespaces>
-    <xqdoc:namespace prefix="metadata" uri="apb.image.metadata"/>
+    <xqdoc:namespace prefix="metadata" uri="expkg-zone58.image.metadata"/>
     <xqdoc:namespace prefix="File" uri="java:java.io.File"/>
     <xqdoc:namespace prefix="URL" uri="java:java.net.URL"/>
     <xqdoc:namespace prefix="URLConnection" uri="java.net.URLConnection"/>
@@ -25,6 +25,7 @@ includes utility functions for post processing some tags such as GPS information
     <xqdoc:namespace prefix="Metadata" uri="java:com.drew.metadata.Metadata"/>
     <xqdoc:namespace prefix="Directory" uri="java:com.drew.metadata.Directory"/>
     <xqdoc:namespace prefix="ArrayList" uri="java:java.util.ArrayList"/>
+    <xqdoc:namespace prefix="ann" uri="http://www.w3.org/2012/xquery"/>
   </xqdoc:namespaces>
   <xqdoc:imports/>
   <xqdoc:variables/>
@@ -69,10 +70,11 @@ includes utility functions for post processing some tags such as GPS information
       <xqdoc:annotations>
         <xqdoc:annotation name="private"/>
       </xqdoc:annotations>
-      <xqdoc:signature>declare %private function dir($dir) as element(tag)*</xqdoc:signature>
+      <xqdoc:signature>declare %private function dir($dir as item()*) as element(tag)*</xqdoc:signature>
       <xqdoc:parameters>
         <xqdoc:parameter>
           <xqdoc:name>dir</xqdoc:name>
+          <xqdoc:type occurrence="*">item()</xqdoc:type>
         </xqdoc:parameter>
       </xqdoc:parameters>
       <xqdoc:return>
@@ -87,10 +89,11 @@ includes utility functions for post processing some tags such as GPS information
       <xqdoc:annotations>
         <xqdoc:annotation name="private"/>
       </xqdoc:annotations>
-      <xqdoc:signature>declare %private function tag($tag) as element(tag)</xqdoc:signature>
+      <xqdoc:signature>declare %private function tag($tag as item()*) as element(tag)</xqdoc:signature>
       <xqdoc:parameters>
         <xqdoc:parameter>
           <xqdoc:name>tag</xqdoc:name>
+          <xqdoc:type occurrence="*">item()</xqdoc:type>
         </xqdoc:parameter>
       </xqdoc:parameters>
       <xqdoc:return>
@@ -106,10 +109,11 @@ http NOT WORKING</xqdoc:description>
       <xqdoc:annotations>
         <xqdoc:annotation name="private"/>
       </xqdoc:annotations>
-      <xqdoc:signature>declare %private function src($path)</xqdoc:signature>
+      <xqdoc:signature>declare %private function src($path as item()*) as item()*</xqdoc:signature>
       <xqdoc:parameters>
         <xqdoc:parameter>
           <xqdoc:name>path</xqdoc:name>
+          <xqdoc:type occurrence="*">item()</xqdoc:type>
         </xqdoc:parameter>
       </xqdoc:parameters>
       <xqdoc:return>
@@ -126,10 +130,11 @@ need more eg [^\x09\x0A\x0D\x20-\uD7FF\uE000-\uFFFD\u10000-u10FFFF]</xqdoc:descr
       <xqdoc:annotations>
         <xqdoc:annotation name="private"/>
       </xqdoc:annotations>
-      <xqdoc:signature>declare %private function clean-string($s)</xqdoc:signature>
+      <xqdoc:signature>declare %private function clean-string($s as item()*) as item()*</xqdoc:signature>
       <xqdoc:parameters>
         <xqdoc:parameter>
           <xqdoc:name>s</xqdoc:name>
+          <xqdoc:type occurrence="*">item()</xqdoc:type>
         </xqdoc:parameter>
       </xqdoc:parameters>
       <xqdoc:return>
@@ -144,13 +149,15 @@ need more eg [^\x09\x0A\x0D\x20-\uD7FF\uE000-\uFFFD\u10000-u10FFFF]</xqdoc:descr
       <xqdoc:annotations>
         <xqdoc:annotation name="private"/>
       </xqdoc:annotations>
-      <xqdoc:signature>declare %private function java-for-each($items, $fn)</xqdoc:signature>
+      <xqdoc:signature>declare %private function java-for-each($items as item()*, $fn as item()*) as item()*</xqdoc:signature>
       <xqdoc:parameters>
         <xqdoc:parameter>
           <xqdoc:name>items</xqdoc:name>
+          <xqdoc:type occurrence="*">item()</xqdoc:type>
         </xqdoc:parameter>
         <xqdoc:parameter>
           <xqdoc:name>fn</xqdoc:name>
+          <xqdoc:type occurrence="*">item()</xqdoc:type>
         </xqdoc:parameter>
       </xqdoc:parameters>
       <xqdoc:return>

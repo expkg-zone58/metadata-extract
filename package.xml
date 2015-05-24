@@ -2,6 +2,6 @@
 	<text src="src/main/expath-pkg.xml" dest="expath-pkg.xml" />
 	<text src="src/main/basex.xml" dest="basex.xml" />
 	<text src="src/main/content/metadata-extractor.xqm" dest="content/metadata-extractor.xqm" />
-	<binary src="src/main/content/metadata-extractor-2.6.4.jar" dest="content/metadata-extractor-2.6.4.jar" />
-	<binary src="src/main/content/xmpcore.jar" dest="content/xmpcore.jar" />
+	<binary src="src/main/content/metadata-extractor-2.8.1.jar" dest="content/metadata-extractor-2.8.1.jar" />
+	<binary src="src/main/content/xmpcore-5.1.2.jar" dest="content/xmpcore-5.1.2.jar" />
 </zip>

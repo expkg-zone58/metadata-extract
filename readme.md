@@ -23,7 +23,7 @@ the DrewNoakes jars included.
 It is targeted at BaseX. It requires at least BaseX 8.2 (because the expkg2012 format is used). 
 It can be installed into the BaseX repository by executing:
 ````
-let $zar:='https://github.com/expkg-zone58/metadata-extract/releases/download/v1.0.5/metadata-extractor-1.0.5.xar'
+let $zar:='https://github.com/expkg-zone58/metadata-extract/releases/download/v1.0.6/metadata-extractor-1.0.6.xar'
 return repo:install($zar)
 ````
 # Tests

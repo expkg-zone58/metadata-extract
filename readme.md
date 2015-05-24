@@ -1,4 +1,4 @@
-# apb.image.metadata
+# expkg-zone58.image.metadata
 An XQuery library to extract image metadata as XML using the 
 [Drewnoakes library](http://drewnoakes.com/code/exif/)  
 The output format is the same as [Xmlcalabash](http://xmlcalabash.com/) metadata extension. 
@@ -10,6 +10,11 @@ The output format is the same as [Xmlcalabash](http://xmlcalabash.com/) metadata
 ````
 BaseX 7.7 or greater is required.
 
+# Usage
+````
+import module namespace metadata = 'expkg-zone58.image.metadata';
+metadata:read("C:\Users\andy\Desktop\russian.jpg")
+````
 Additionally functions are provided to process some common tags, such as GPS information.
 
 # Installation

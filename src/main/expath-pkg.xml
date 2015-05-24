@@ -1,7 +1,7 @@
 <package xmlns="http://expath.org/ns/pkg"
-         name="expkg-zone58.image.metadata"
-         abbrev="content"
-         version="1.0.3"
+         name="http://expkg-zone58.github.io/metadata-extractor"
+         abbrev="metadata-extractor"
+         version="1.0.5"
          spec="1.0">
 
    <title>Extract image metadata using http://drewnoakes.com/code/exif/</title>

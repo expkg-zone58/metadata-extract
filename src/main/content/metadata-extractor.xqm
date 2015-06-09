@@ -17,7 +17,7 @@ declare namespace ImageMetadataReader="java:com.drew.imaging.ImageMetadataReader
 declare namespace Metadata="java:com.drew.metadata.Metadata";
 declare namespace Directory="java:com.drew.metadata.Directory";
 declare namespace ArrayList="java:java.util.ArrayList";
-
+declare namespace apb="java:org.apb.modules.TestModule";
 
 (:~ extract metadata 
  : @param path source file
@@ -92,8 +92,9 @@ declare %private function clean-string($s){
 (:~ apply function fn to each item in java list thing :)
 declare  %private function java-for-each($items,$fn)
 {
-   for $i in 0 to ArrayList:size($items) -1
-   let $s:= ArrayList:get($items,xs:int($i))
+   let $a:=apb:makeCollection($items)
+   for $i in 0 to ArrayList:size($a) -1
+   let $s:= ArrayList:get($a,xs:int($i))
    return $fn($s)
 };
 

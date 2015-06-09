@@ -2,7 +2,9 @@
  : unit tests for metadata module
  :)
 module namespace test = 'http://basex.org/modules/xqunit-tests'; 
-import module namespace metadata = 'expkg-zone58.image.metadata';
+
+import module namespace metadata = "expkg-zone58.image.metadata" at "../main/content/metadata-extractor.xqm";
+
 
 declare variable $test:pic1:=resolve-uri("simple.jpg"); 
  

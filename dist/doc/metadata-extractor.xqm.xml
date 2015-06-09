@@ -1,6 +1,6 @@
 <xqdoc:xqdoc xmlns:xqdoc="http://www.xqdoc.org/1.0">
   <xqdoc:control>
-    <xqdoc:date>2015-05-24T22:16:21.997+01:00</xqdoc:date>
+    <xqdoc:date>2015-06-09T23:15:31.43+01:00</xqdoc:date>
     <xqdoc:version>1.1</xqdoc:version>
   </xqdoc:control>
   <xqdoc:module type="library">
@@ -25,6 +25,7 @@ includes utility functions for post processing some tags such as GPS information
     <xqdoc:namespace prefix="Metadata" uri="java:com.drew.metadata.Metadata"/>
     <xqdoc:namespace prefix="Directory" uri="java:com.drew.metadata.Directory"/>
     <xqdoc:namespace prefix="ArrayList" uri="java:java.util.ArrayList"/>
+    <xqdoc:namespace prefix="apb" uri="java:org.apb.modules.TestModule"/>
     <xqdoc:namespace prefix="ann" uri="http://www.w3.org/2012/xquery"/>
   </xqdoc:namespaces>
   <xqdoc:imports/>

@@ -28,5 +28,8 @@ The output format is the same as [Xmlcalabash](http://xmlcalabash.com/) metadata
     <version num="1.0.8">
       <!-- generated: {fn:current-dateTime()} -->
     </version>
+    <version num="1.0.9">
+      <!-- generated: {fn:current-dateTime()} -->
+    </version>
   </pkg>
 </repo>

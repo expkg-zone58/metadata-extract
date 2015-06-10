@@ -8,7 +8,7 @@ The output xml format matches the o/p of the [Xmlcalabash](http://xmlcalabash.co
  <tag ..
 </metadata>
 ````
-BaseX 7.7 or greater is required.
+BaseX 8.2.1+ required.
 
 # Usage
 ````
@@ -23,8 +23,10 @@ the DrewNoakes jars included.
 It is targeted at BaseX. It requires at least BaseX 8.2 (because the expkg2012 format is used). 
 It can be installed into the BaseX repository by executing:
 ````
-let $zar:='https://github.com/expkg-zone58/metadata-extract/releases/download/v1.0.6/metadata-extractor-1.0.6.xar'
-return repo:install($zar)
+"https://github.com/expkg-zone58/metadata-extract/releases/download/v1.0.9/metadata-extractor-1.0.9.xar"
+=>repo:install()
+
 ````
+
 # Tests
-The `test.xq` script uses the BaseX [Unit module](http://docs.basex.org/wiki/Unit_Module)
+The `test.xqm` script uses the BaseX [Unit module](http://docs.basex.org/wiki/Unit_Module)

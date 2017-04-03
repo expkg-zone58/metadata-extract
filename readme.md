@@ -1,4 +1,4 @@
-# expkg-zone58.image.metadata
+# expkg-zone58:image.metadata
 An XQuery library to extract image metadata as XML using the 
 [Drew Noakes library](http://drewnoakes.com/code/exif/)  
 The output XML format matches the o/p of the [Xmlcalabash](http://xmlcalabash.com/) metadata extension. 
@@ -44,7 +44,7 @@ the DrewNoakes jars included (version 2.10)
 It is targeted at BaseX. It was tested against BaseX version 8.6.2. 
 It can be installed into the BaseX repository by executing:
 ````
-"https://github.com/expkg-zone58/metadata-extract/releases/download/v1.0.9/metadata-extractor-1.0.10.xar"
+"https://github.com/expkg-zone58/metadata-extract/releases/download/v1.1.1/metadata-extractor-1.1.1.xar"
 =>repo:install()
 
 ````

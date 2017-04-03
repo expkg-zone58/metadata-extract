@@ -3,14 +3,14 @@
  :)
 module namespace test = 'http://basex.org/modules/xqunit-tests'; 
 
-import module namespace mp3agic = "expkg-zone58.audio.mp3" at "../main/content/mp3magic.xqm";
+import module namespace metadata = "expkg-zone58:image.metadata" at "../main/content/metadata-extractor.xqm";
+declare variable $test:pic1:=resolve-uri("simple.jpg"); 
 
-declare variable $test:mp3:=resolve-uri("v24tagswithalbumimage.mp3"); 
  
 (:~ we get tags :)
 declare
   %unit:test
-  function test:success-function() {
+  function test:read() {
   let $meta:=metadata:read($test:pic1)
   return unit:assert($meta/tag)
 };

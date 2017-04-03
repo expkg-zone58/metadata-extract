@@ -12,27 +12,8 @@ The output format is the same as [Xmlcalabash](http://xmlcalabash.com/) metadata
     <tag>graphics</tag>
     <tag>metadata</tag>
     <tag>image</tag>
-    <version num="0.0.5">
-      <dependency processor="basex"/>
-      <file name="ex-dotml-0.0.5.xar" role="pkg"/>
-    </version>
-    <version num="1.0.5">
-      <!-- generated: {fn:current-dateTime()} -->
-    </version>
-    <version num="1.0.6">
-      <!-- generated: {fn:current-dateTime()} -->
-    </version>
-    <version num="1.0.7">
-      <!-- generated: {fn:current-dateTime()} -->
-    </version>
-    <version num="1.0.8">
-      <!-- generated: {fn:current-dateTime()} -->
-    </version>
-    <version num="1.0.9">
-      <!-- generated: {fn:current-dateTime()} -->
-    </version>
-    <version num="1.0.10">
-      <!-- generated: {fn:current-dateTime()} -->
+    <version num="1.1.1" generated="2017-04-03T11:24:39.309+01:00">
+      <file name="metadata-extractor-1.1.1.xar" role="pkg"/>
     </version>
   </pkg>
 </repo>

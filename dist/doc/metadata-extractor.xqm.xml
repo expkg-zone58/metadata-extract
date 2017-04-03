@@ -1,22 +1,28 @@
 <xqdoc:xqdoc xmlns:xqdoc="http://www.xqdoc.org/1.0">
   <xqdoc:control>
-    <xqdoc:date>2015-06-10T21:18:12.081+01:00</xqdoc:date>
+    <xqdoc:date>2017-04-03T11:24:39.309+01:00</xqdoc:date>
     <xqdoc:version>1.1</xqdoc:version>
   </xqdoc:control>
   <xqdoc:module type="library">
-    <xqdoc:uri>expkg-zone58.image.metadata</xqdoc:uri>
+    <xqdoc:uri>expkg-zone58:image.metadata</xqdoc:uri>
     <xqdoc:name>metadata-extractor.xqm</xqdoc:name>
     <xqdoc:comment>
-      <xqdoc:description>return image metadata as xml using http://drewnoakes.com/code/exif/
-usage: metadata:read('C:/temp/apic.jpg')
-xml format based on xmlcalabash1
-https://github.com/ndw/xmlcalabash1/blob/master/src/com/xmlcalabash/extensions/MetadataExtractor.java
+      <xqdoc:description>Return metadata from image file as xml using the 
+<a href="https://github.com/drewnoakes/metadata-extractor">http://drewnoakes.com/code/exif/</a> library.
+<pre>
+usage: 
+<code>imgmeta:read('C:/temp/apic.jpg')</code>
+</pre>
+The xml format based on xmlcalabash1
+
 includes utility functions for post processing some tags such as GPS information.</xqdoc:description>
       <xqdoc:author>andy bunce</xqdoc:author>
+      <xqdoc:see>https://github.com/ndw/xmlcalabash1/blob/master/src/com/xmlcalabash/extensions/MetadataExtractor.java</xqdoc:see>
+      <xqdoc:version>1.1.0</xqdoc:version>
     </xqdoc:comment>
   </xqdoc:module>
   <xqdoc:namespaces>
-    <xqdoc:namespace prefix="metadata" uri="expkg-zone58.image.metadata"/>
+    <xqdoc:namespace prefix="imgmeta" uri="expkg-zone58:image.metadata"/>
     <xqdoc:namespace prefix="File" uri="java:java.io.File"/>
     <xqdoc:namespace prefix="URL" uri="java:java.net.URL"/>
     <xqdoc:namespace prefix="URLConnection" uri="java.net.URLConnection"/>
@@ -33,13 +39,13 @@ includes utility functions for post processing some tags such as GPS information
   <xqdoc:functions>
     <xqdoc:function arity="1">
       <xqdoc:comment>
-        <xqdoc:description>extract metadata</xqdoc:description>
+        <xqdoc:description>Read image metadata from file, errors are supressed</xqdoc:description>
         <xqdoc:param>path source file</xqdoc:param>
         <xqdoc:custom tag="result">metadata wrapping set of tag elements with @name @dir @type attributes 
        and text containing value. empty if error</xqdoc:custom>
       </xqdoc:comment>
-      <xqdoc:name>read</xqdoc:name>
-      <xqdoc:signature>declare function read($path as xs:string) as element(metadata)</xqdoc:signature>
+      <xqdoc:name>imgmeta:read</xqdoc:name>
+      <xqdoc:signature>declare function imgmeta:read($path as xs:string) as element(metadata)</xqdoc:signature>
       <xqdoc:parameters>
         <xqdoc:parameter>
           <xqdoc:name>path</xqdoc:name>
@@ -51,8 +57,12 @@ includes utility functions for post processing some tags such as GPS information
       </xqdoc:return>
     </xqdoc:function>
     <xqdoc:function arity="1">
-      <xqdoc:name>tags</xqdoc:name>
-      <xqdoc:signature>declare function tags($path as xs:string) as element(tag)*</xqdoc:signature>
+      <xqdoc:comment>
+        <xqdoc:description>Read image metadata from file</xqdoc:description>
+        <xqdoc:return>sequence of <code>tag</code> elements</xqdoc:return>
+      </xqdoc:comment>
+      <xqdoc:name>imgmeta:tags</xqdoc:name>
+      <xqdoc:signature>declare function imgmeta:tags($path as xs:string) as element(tag)*</xqdoc:signature>
       <xqdoc:parameters>
         <xqdoc:parameter>
           <xqdoc:name>path</xqdoc:name>
@@ -65,13 +75,13 @@ includes utility functions for post processing some tags such as GPS information
     </xqdoc:function>
     <xqdoc:function arity="1">
       <xqdoc:comment>
-        <xqdoc:description>tags in directory</xqdoc:description>
+        <xqdoc:description>Tags in directory</xqdoc:description>
       </xqdoc:comment>
-      <xqdoc:name>dir</xqdoc:name>
+      <xqdoc:name>imgmeta:dir</xqdoc:name>
       <xqdoc:annotations>
         <xqdoc:annotation name="private"/>
       </xqdoc:annotations>
-      <xqdoc:signature>declare %private function dir($dir as item()*) as element(tag)*</xqdoc:signature>
+      <xqdoc:signature>declare %private function imgmeta:dir($dir as item()*) as element(tag)*</xqdoc:signature>
       <xqdoc:parameters>
         <xqdoc:parameter>
           <xqdoc:name>dir</xqdoc:name>
@@ -84,13 +94,13 @@ includes utility functions for post processing some tags such as GPS information
     </xqdoc:function>
     <xqdoc:function arity="1">
       <xqdoc:comment>
-        <xqdoc:description>extract a single tag</xqdoc:description>
+        <xqdoc:description>Extract a single tag</xqdoc:description>
       </xqdoc:comment>
-      <xqdoc:name>tag</xqdoc:name>
+      <xqdoc:name>imgmeta:tag</xqdoc:name>
       <xqdoc:annotations>
         <xqdoc:annotation name="private"/>
       </xqdoc:annotations>
-      <xqdoc:signature>declare %private function tag($tag as item()*) as element(tag)</xqdoc:signature>
+      <xqdoc:signature>declare %private function imgmeta:tag($tag as item()*) as element(tag)</xqdoc:signature>
       <xqdoc:parameters>
         <xqdoc:parameter>
           <xqdoc:name>tag</xqdoc:name>
@@ -106,11 +116,11 @@ includes utility functions for post processing some tags such as GPS information
         <xqdoc:description>file or stream for http
 http NOT WORKING</xqdoc:description>
       </xqdoc:comment>
-      <xqdoc:name>src</xqdoc:name>
+      <xqdoc:name>imgmeta:src</xqdoc:name>
       <xqdoc:annotations>
         <xqdoc:annotation name="private"/>
       </xqdoc:annotations>
-      <xqdoc:signature>declare %private function src($path as item()*) as item()*</xqdoc:signature>
+      <xqdoc:signature>declare %private function imgmeta:src($path as item()*) as item()*</xqdoc:signature>
       <xqdoc:parameters>
         <xqdoc:parameter>
           <xqdoc:name>path</xqdoc:name>
@@ -123,15 +133,15 @@ http NOT WORKING</xqdoc:description>
     </xqdoc:function>
     <xqdoc:function arity="1">
       <xqdoc:comment>
-        <xqdoc:description>remove bad chars from java string
+        <xqdoc:description>Remove bad chars from java string
 need more eg [^\x09\x0A\x0D\x20-\uD7FF\uE000-\uFFFD\u10000-u10FFFF]</xqdoc:description>
         <xqdoc:see>http://stackoverflow.com/a/14323524</xqdoc:see>
       </xqdoc:comment>
-      <xqdoc:name>clean-string</xqdoc:name>
+      <xqdoc:name>imgmeta:clean-string</xqdoc:name>
       <xqdoc:annotations>
         <xqdoc:annotation name="private"/>
       </xqdoc:annotations>
-      <xqdoc:signature>declare %private function clean-string($s as item()*) as item()*</xqdoc:signature>
+      <xqdoc:signature>declare %private function imgmeta:clean-string($s as item()*) as item()*</xqdoc:signature>
       <xqdoc:parameters>
         <xqdoc:parameter>
           <xqdoc:name>s</xqdoc:name>
@@ -146,11 +156,11 @@ need more eg [^\x09\x0A\x0D\x20-\uD7FF\uE000-\uFFFD\u10000-u10FFFF]</xqdoc:descr
       <xqdoc:comment>
         <xqdoc:description>apply function fn to each item in java list thing</xqdoc:description>
       </xqdoc:comment>
-      <xqdoc:name>java-for-each</xqdoc:name>
+      <xqdoc:name>imgmeta:java-for-each</xqdoc:name>
       <xqdoc:annotations>
         <xqdoc:annotation name="private"/>
       </xqdoc:annotations>
-      <xqdoc:signature>declare %private function java-for-each($items as item()*, $fn as item()*) as item()*</xqdoc:signature>
+      <xqdoc:signature>declare %private function imgmeta:java-for-each($items as item()*, $fn as item()*) as item()*</xqdoc:signature>
       <xqdoc:parameters>
         <xqdoc:parameter>
           <xqdoc:name>items</xqdoc:name>
@@ -167,10 +177,10 @@ need more eg [^\x09\x0A\x0D\x20-\uD7FF\uE000-\uFFFD\u10000-u10FFFF]</xqdoc:descr
     </xqdoc:function>
     <xqdoc:function arity="1">
       <xqdoc:comment>
-        <xqdoc:description>convert date like "2010:06:30 14:26:25" to iso format</xqdoc:description>
+        <xqdoc:description>Convert date like "2010:06:30 14:26:25" to iso format</xqdoc:description>
       </xqdoc:comment>
-      <xqdoc:name>isodate</xqdoc:name>
-      <xqdoc:signature>declare function isodate($value as xs:string) as xs:string</xqdoc:signature>
+      <xqdoc:name>imgmeta:isodate</xqdoc:name>
+      <xqdoc:signature>declare function imgmeta:isodate($value as xs:string) as xs:string</xqdoc:signature>
       <xqdoc:parameters>
         <xqdoc:parameter>
           <xqdoc:name>value</xqdoc:name>
@@ -183,11 +193,11 @@ need more eg [^\x09\x0A\x0D\x20-\uD7FF\uE000-\uFFFD\u10000-u10FFFF]</xqdoc:descr
     </xqdoc:function>
     <xqdoc:function arity="1">
       <xqdoc:comment>
-        <xqdoc:description>convert degrees minutes seconds to decimal degrees</xqdoc:description>
+        <xqdoc:description>Convert degrees minutes seconds to decimal degrees</xqdoc:description>
         <xqdoc:param>dms string like 45.0� 1.0' 46.32869861594543"</xqdoc:param>
       </xqdoc:comment>
-      <xqdoc:name>geodecimal</xqdoc:name>
-      <xqdoc:signature>declare function geodecimal($dms as xs:string) as xs:double</xqdoc:signature>
+      <xqdoc:name>imgmeta:geodecimal</xqdoc:name>
+      <xqdoc:signature>declare function imgmeta:geodecimal($dms as xs:string) as xs:double</xqdoc:signature>
       <xqdoc:parameters>
         <xqdoc:parameter>
           <xqdoc:name>dms</xqdoc:name>
@@ -200,11 +210,11 @@ need more eg [^\x09\x0A\x0D\x20-\uD7FF\uE000-\uFFFD\u10000-u10FFFF]</xqdoc:descr
     </xqdoc:function>
     <xqdoc:function arity="1">
       <xqdoc:comment>
-        <xqdoc:description>process gps elements</xqdoc:description>
+        <xqdoc:description>Process gps elements</xqdoc:description>
         <xqdoc:return>geo tag with lat and long children</xqdoc:return>
       </xqdoc:comment>
-      <xqdoc:name>geo</xqdoc:name>
-      <xqdoc:signature>declare function geo($metadata as element(metadata)) as element(geo)?</xqdoc:signature>
+      <xqdoc:name>imgmeta:geo</xqdoc:name>
+      <xqdoc:signature>declare function imgmeta:geo($metadata as element(metadata)) as element(geo)?</xqdoc:signature>
       <xqdoc:parameters>
         <xqdoc:parameter>
           <xqdoc:name>metadata</xqdoc:name>
@@ -217,10 +227,11 @@ need more eg [^\x09\x0A\x0D\x20-\uD7FF\uE000-\uFFFD\u10000-u10FFFF]</xqdoc:descr
     </xqdoc:function>
     <xqdoc:function arity="1">
       <xqdoc:comment>
-        <xqdoc:description>extract keywords and split into seperate elements</xqdoc:description>
+        <xqdoc:description>Extract keywords and split into seperate elements</xqdoc:description>
+        <xqdoc:return>keyword elements wrapped in keywords</xqdoc:return>
       </xqdoc:comment>
-      <xqdoc:name>keywords</xqdoc:name>
-      <xqdoc:signature>declare function keywords($metadata as element(metadata)) as element(keywords)?</xqdoc:signature>
+      <xqdoc:name>imgmeta:keywords</xqdoc:name>
+      <xqdoc:signature>declare function imgmeta:keywords($metadata as element(metadata)) as element(keywords)?</xqdoc:signature>
       <xqdoc:parameters>
         <xqdoc:parameter>
           <xqdoc:name>metadata</xqdoc:name>
@@ -233,11 +244,11 @@ need more eg [^\x09\x0A\x0D\x20-\uD7FF\uE000-\uFFFD\u10000-u10FFFF]</xqdoc:descr
     </xqdoc:function>
     <xqdoc:function arity="1">
       <xqdoc:comment>
-        <xqdoc:description>extract core stuff
+        <xqdoc:description>Extract core stuff
 width,height,datetaken,model,caption</xqdoc:description>
       </xqdoc:comment>
-      <xqdoc:name>core</xqdoc:name>
-      <xqdoc:signature>declare function core($metadata as element(metadata)) as element()*</xqdoc:signature>
+      <xqdoc:name>imgmeta:core</xqdoc:name>
+      <xqdoc:signature>declare function imgmeta:core($metadata as element(metadata)) as element()*</xqdoc:signature>
       <xqdoc:parameters>
         <xqdoc:parameter>
           <xqdoc:name>metadata</xqdoc:name>

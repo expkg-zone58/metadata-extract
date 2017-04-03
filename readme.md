@@ -12,15 +12,15 @@ BaseX 8.2.1+ required.
 
 # Usage
 ````
-import module namespace metadata = 'expkg-zone58.image.metadata';
+import module namespace metadata = 'expkg-zone58:image.metadata';
 metadata:read("C:\Users\andy\Desktop\russian.jpg")
 ````
 Additionally functions are provided to process some common tags, such as GPS information.
 
 # Installation
 The library is packaged in the [EXpath](http://expath.org/spec/pkg) xar format with 
-the DrewNoakes jars included. 
-It is targeted at BaseX. It requires at least BaseX 8.2 (because the expkg2012 format is used). 
+the DrewNoakes jars included (version 2.10) 
+It is targeted at BaseX. It was tested against BaseX version 8.6.2. 
 It can be installed into the BaseX repository by executing:
 ````
 "https://github.com/expkg-zone58/metadata-extract/releases/download/v1.0.9/metadata-extractor-1.0.10.xar"

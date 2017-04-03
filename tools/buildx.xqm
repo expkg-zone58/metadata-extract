@@ -16,7 +16,7 @@ declare namespace pkg="http://expath.org/ns/pkg";
  declare function files($src as xs:string) as xs:string*
  {
    fn:filter(file:list($src,fn:true()),
-          function ($f){file:is-file($src || $f)}
+          function ($f){($src || $f)=>fn:translate("\","/")=>file:is-file()}
         )
           !fn:translate(.,"\","/") 
  };
@@ -55,8 +55,8 @@ let $doc:=copy  $c:=fn:doc($cxan)
           modify(
           let $pack:=$c/repo/pkg[name=$pkg/@name]
           let $hit:= $pack/version[@num=$pkg/@version]
-          let $new:=<version num="{$pkg/@version}">
-                    <!-- generated: {fn:current-dateTime()} -->
+          let $new:=<version num="{$pkg/@version}" generated="{fn:current-dateTime()}" >
+                   <file name="{xar-name($pkg)}" role="pkg"/> 
                     </version>
           return if($hit)then () 
                  else insert node $new into $pack

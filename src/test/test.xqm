@@ -14,4 +14,18 @@ declare
   let $meta:=metadata:read($test:pic1)
   return unit:assert($meta/tag)
 };
-  
+
+(:~ we get core info :)
+declare
+  %unit:test
+  function test:core() {
+  let $meta:=metadata:read($test:pic1)
+  return unit:assert(metadata:core($meta))
+};  
+(:~ we get no keyword info :)
+declare
+  %unit:test
+  function test:keywords() {
+  let $meta:=metadata:read($test:pic1)
+  return unit:assert(metadata:keywords($meta)=>fn:empty())
+};  

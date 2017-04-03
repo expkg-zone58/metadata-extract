@@ -34,7 +34,7 @@ declare function imgmeta:read($path as xs:string) as element(metadata)
    try {
     <metadata>{imgmeta:tags($path)}</metadata>
    } catch * {
-    <metadata error="{$err:description}"/> 
+    <metadata error="{$err:code}">{$err:description}</metadata>
    }
 };
 
@@ -193,6 +193,6 @@ declare function imgmeta:core($metadata as element(metadata)) as element()*
             if($d3 castable as xs:dateTime) then <datedigitized>{$d3/fn:string()}</datedigitized> else (),
             if($c) then <caption>{$c/fn:string()}</caption> else (),
             if($m) then <model>{$m/fn:string()}</model> else (),
-            if($w and $h)  then (<width>{$w}</width>,<height>{$h}</height>) else ()
+            if($w and $h)  then (<width>{$w}</width>,<height>{$h}</height>) else ()   
             )
 }; 

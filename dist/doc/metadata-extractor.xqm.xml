@@ -1,6 +1,6 @@
 <xqdoc:xqdoc xmlns:xqdoc="http://www.xqdoc.org/1.0">
   <xqdoc:control>
-    <xqdoc:date>2017-04-03T11:24:39.309+01:00</xqdoc:date>
+    <xqdoc:date>2017-07-12T22:37:20.658+01:00</xqdoc:date>
     <xqdoc:version>1.1</xqdoc:version>
   </xqdoc:control>
   <xqdoc:module type="library">
@@ -124,27 +124,6 @@ http NOT WORKING</xqdoc:description>
       <xqdoc:parameters>
         <xqdoc:parameter>
           <xqdoc:name>path</xqdoc:name>
-          <xqdoc:type occurrence="*">item()</xqdoc:type>
-        </xqdoc:parameter>
-      </xqdoc:parameters>
-      <xqdoc:return>
-        <xqdoc:type occurrence="*">item()</xqdoc:type>
-      </xqdoc:return>
-    </xqdoc:function>
-    <xqdoc:function arity="1">
-      <xqdoc:comment>
-        <xqdoc:description>Remove bad chars from java string
-need more eg [^\x09\x0A\x0D\x20-\uD7FF\uE000-\uFFFD\u10000-u10FFFF]</xqdoc:description>
-        <xqdoc:see>http://stackoverflow.com/a/14323524</xqdoc:see>
-      </xqdoc:comment>
-      <xqdoc:name>imgmeta:clean-string</xqdoc:name>
-      <xqdoc:annotations>
-        <xqdoc:annotation name="private"/>
-      </xqdoc:annotations>
-      <xqdoc:signature>declare %private function imgmeta:clean-string($s as item()*) as item()*</xqdoc:signature>
-      <xqdoc:parameters>
-        <xqdoc:parameter>
-          <xqdoc:name>s</xqdoc:name>
           <xqdoc:type occurrence="*">item()</xqdoc:type>
         </xqdoc:parameter>
       </xqdoc:parameters>

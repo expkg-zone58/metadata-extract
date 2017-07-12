@@ -65,7 +65,7 @@ declare %private function imgmeta:tag($tag) as element(tag)
       let $dir:=Tag:getDirectoryName($tag)
       let $type:=Tag:getTagTypeHex($tag)
       let $value:=(# db:checkstrings false #){
-                imgmeta:clean-string(Tag:getDescription($tag))
+                Tag:getDescription($tag)
                 }  (: remove illegals :)
       let $value:=imgmeta:isodate($value) 
       return <tag name="{$name}" dir="{$dir}" type="{$type}">{$value}</tag>
@@ -88,15 +88,7 @@ declare %private function imgmeta:src($path){
       return File:new($path)
 };
 
-(:~ Remove bad chars from java string
- : need more eg [^\x09\x0A\x0D\x20-\uD7FF\uE000-\uFFFD\u10000-u10FFFF]
- : @see http://stackoverflow.com/a/14323524
- :)
-declare %private function imgmeta:clean-string($s){
-    let $t:= fn:string-to-codepoints($s)
-    let $t:=fn:filter($t,function($c as xs:integer){$c > 8})
-    return fn:codepoints-to-string($t)
-};
+
 
 (:~ apply function fn to each item in java list thing :)
 declare  %private function imgmeta:java-for-each($items,$fn)
@@ -160,7 +152,7 @@ declare function imgmeta:geo($metadata as element(metadata)) as element(geo)?
  :)
 declare function imgmeta:keywords($metadata as element(metadata)) as element(keywords)?
 {
-  let $keywords:=$metadata/tag[@name="Keywords" and @dir="Iptc"]
+  let $keywords:=$metadata/tag[@name="Keywords" and @dir="IPTC"]
   return if($keywords)
          then <keywords>{
               for $k in fn:tokenize($keywords,";")
@@ -179,20 +171,21 @@ declare function imgmeta:core($metadata as element(metadata)) as element()*
     let $d2:=$metadata/tag[@name="Date/Time Original"  and @dir="Exif SubIFD"]
     let $d3:=$metadata/tag[@name="Date/Time Digitized" and @dir="Exif SubIFD" ]
     
-    let $c:=$metadata/tag[@name="Caption/Abstract" and @dir="Iptc"]
-    let $m:=$metadata/tag[@name="Model" and @dir="Exif IFD0"] 
+    let $c:=$metadata/tag[@name="Caption/Abstract" and @dir="IPTC"]
+    let $m:=$metadata/tag[@name="Make" and @dir="Exif IFD0"]
+    let $m:=($m, $metadata/tag[@name="Model" and @dir="Exif IFD0"])  
     (: image size 
-    : use get("Image Width","Jpeg") rather than
+    : use get("Image Width","JPEG") rather than
     : get("Exif Image Width","Exif SubIFD") because never found alone
     :)
-    let $w:=$metadata/tag[@name="Image Width" and @dir="Jpeg"]/fn:substring-before(.," ")
-    let $h:=$metadata/tag[@name="Image Height" and @dir="Jpeg"]/fn:substring-before(.," ")
+    let $w:=$metadata/tag[@name="Image Width" and @dir="JPEG"]/fn:substring-before(.," ")
+    let $h:=$metadata/tag[@name="Image Height" and @dir="JPEG"]/fn:substring-before(.," ")
 
     return (if($d1 castable as xs:dateTime) then <dateedit>{$d1/fn:string()}</dateedit> else (),
             if($d2 castable as xs:dateTime) then <datetaken>{$d2/fn:string()}</datetaken> else (),
             if($d3 castable as xs:dateTime) then <datedigitized>{$d3/fn:string()}</datedigitized> else (),
             if($c) then <caption>{$c/fn:string()}</caption> else (),
-            if($m) then <model>{$m/fn:string()}</model> else (),
+            if($m) then <model>{string-join($m," ")}</model> else (),
             if($w and $h)  then (<width>{$w}</width>,<height>{$h}</height>) else ()   
             )
 }; 

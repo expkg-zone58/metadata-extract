@@ -2,7 +2,7 @@
 An XQuery library to extract image metadata as XML using the 
 [Drew Noakes library](http://drewnoakes.com/code/exif/)  
 The output XML format matches the o/p of the [Xmlcalabash](http://xmlcalabash.com/) metadata extension. 
-```
+```xquery
 import module namespace imgmeta = "expkg-zone58:image.metadata" ;
 
 declare variable $pic1:=resolve-uri("simple.jpg"); 
@@ -28,26 +28,36 @@ imgmeta:read($pic1)
   <tag name="Date/Time" dir="Exif IFD0" type="0x0132">2002-11-18T22:46:09</tag>
   <tag name="Host Computer" dir="Exif IFD0" type="0x013c">Mac OS X 10.2.2</tag>
 ..
-````
+```
 
 
 # Usage
-````
+
+```xquery
 import module namespace metadata = 'expkg-zone58:image.metadata';
 metadata:read("C:\Users\andy\Desktop\russian.jpg")
-````
+```
+
 Additionally functions are provided to process some common tags, such as GPS information.
+##XMP data
+
+```xquery
+import module namespace imgmeta = "expkg-zone58:image.metadata" ;
+declare variable $pic1:="C:\Users\andy\Desktop\IMG_3881.JPG"; 
+
+$pic1=>fetch:binary()=>imgmeta:xmp()
+```
 
 # Installation
 The library is packaged in the [EXpath](http://expath.org/spec/pkg) xar format with 
 the DrewNoakes jars included (version 2.11.0) 
 It is targeted at BaseX. It was tested against BaseX version 8.9.0 beta. 
 It can be installed into the BaseX repository by executing:
-````
+```
 "https://github.com/expkg-zone58/metadata-extract/releases/download/v1.2.4/metadata-extractor-1.2.4.xar"
 =>repo:install()
+```
 
-````
 # Versions
 Basex 8.9+ requires metadata-extractor-1.2.x.xar +
 

@@ -13,7 +13,7 @@ xquery version "3.0" encoding "UTF-8";
   :@version 1.1.0
  :)
 module namespace imgmeta = 'expkg-zone58:image.metadata';
-
+import module namespace Shim = "org.expkgzone58.image.Metadata";
 declare namespace File="java:java.io.File";
 declare namespace URL="java:java.net.URL";
 declare namespace URLConnection="java.net.URLConnection";
@@ -22,7 +22,6 @@ declare namespace ImageMetadataReader="java:com.drew.imaging.ImageMetadataReader
 declare namespace Metadata="java:com.drew.metadata.Metadata";
 declare namespace Directory="java:com.drew.metadata.Directory";
 declare namespace ArrayList="java:java.util.ArrayList";
-declare namespace apb="java:org.apb.modules.TestModule";
 
 (:~ Read image metadata from file, errors are supressed 
  : @param path source file
@@ -93,7 +92,7 @@ declare %private function imgmeta:src($path){
 (:~ apply function fn to each item in java list thing :)
 declare  %private function imgmeta:java-for-each($items,$fn)
 {
-   let $a:=apb:makeCollection($items)
+   let $a:=Shim:makeCollection($items)
    for $i in 0 to ArrayList:size($a) -1
    let $s:= ArrayList:get($a,xs:int($i))
    return $fn($s)
@@ -189,3 +188,14 @@ declare function imgmeta:core($metadata as element(metadata)) as element()*
             if($w and $h)  then (<width>{$w}</width>,<height>{$h}</height>) else ()   
             )
 }; 
+
+(:~
+ : XMP tags from source
+ : @param $source base64Binary (streamed?) e.g from `fetch:binary`
+ : @return <tag ../>*
+ :)
+declare function imgmeta:xmp($source  as xs:base64Binary)
+as  element(tag)*
+{
+  Shim:xmp($source)
+};

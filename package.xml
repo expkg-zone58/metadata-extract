@@ -21,5 +21,29 @@ The output format is the same as [Xmlcalabash](http://xmlcalabash.com/) metadata
     <version num="1.1.3" generated="2017-07-12T22:37:20.658+01:00">
       <file name="metadata-extractor-1.1.3.xar" role="pkg"/>
     </version>
+    <version num="1.1.4" generated="2017-11-24T22:19:14.689Z">
+      <file name="metadata-extractor-1.1.4.xar" role="pkg"/>
+    </version>
+    <version num="1.1.5" generated="2017-12-28T12:58:41.326Z">
+      <file name="metadata-extractor-1.1.5.xar" role="pkg"/>
+    </version>
+    <version num="1.2.0" generated="2017-12-28T19:41:19.29Z">
+      <file name="metadata-extractor-1.2.0.xar" role="pkg"/>
+    </version>
+    <version num="1.2.1" generated="2017-12-28T20:58:10.249Z">
+      <file name="metadata-extractor-1.2.1.xar" role="pkg"/>
+    </version>
+    <version num="1.2.2" generated="2017-12-28T22:08:29.312Z">
+      <file name="metadata-extractor-1.2.2.xar" role="pkg"/>
+    </version>
+    <version num="1.2.3" generated="2017-12-28T22:26:53.677Z">
+      <file name="metadata-extractor-1.2.3.xar" role="pkg"/>
+    </version>
+    <version num="1.2.4" generated="2017-12-29T10:37:43.284Z">
+      <file name="metadata-extractor-1.2.4.xar" role="pkg"/>
+    </version>
+    <version num="1.2.5" generated="2017-12-29T10:52:35.117Z">
+      <file name="metadata-extractor-1.2.5.xar" role="pkg"/>
+    </version>
   </pkg>
 </repo>

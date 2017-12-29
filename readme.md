@@ -39,6 +39,7 @@ metadata:read("C:\Users\andy\Desktop\russian.jpg")
 ```
 
 Additionally functions are provided to process some common tags, such as GPS information.
+
 ##XMP data
 
 ```xquery
@@ -46,6 +47,25 @@ import module namespace imgmeta = "expkg-zone58:image.metadata" ;
 declare variable $pic1:="C:\Users\andy\Desktop\IMG_3881.JPG"; 
 
 $pic1=>fetch:binary()=>imgmeta:xmp()
+
+<tag dir="xmp-XMP" name="xmp:ModifyDate">2015-07-16T14:56:03+01:00</tag>
+<tag dir="xmp-XMP" name="dc:creator"/>
+<tag dir="xmp-XMP" name="dc:creator[1]">Picasa</tag>
+<tag dir="xmp-XMP" name="mwg-rs:Regions"/>
+<tag dir="xmp-XMP" name="mwg-rs:Regions/mwg-rs:AppliedToDimensions"/>
+<tag dir="xmp-XMP" name="mwg-rs:Regions/mwg-rs:AppliedToDimensions/stDim:h">1200</tag>
+<tag dir="xmp-XMP" name="mwg-rs:Regions/mwg-rs:AppliedToDimensions/stDim:unit">pixel</tag>
+<tag dir="xmp-XMP" name="mwg-rs:Regions/mwg-rs:AppliedToDimensions/stDim:w">1600</tag>
+<tag dir="xmp-XMP" name="mwg-rs:Regions/mwg-rs:RegionList"/>
+<tag dir="xmp-XMP" name="mwg-rs:Regions/mwg-rs:RegionList[1]"/>
+<tag dir="xmp-XMP" name="mwg-rs:Regions/mwg-rs:RegionList[1]/mwg-rs:Name">train - kevin</tag>
+<tag dir="xmp-XMP" name="mwg-rs:Regions/mwg-rs:RegionList[1]/mwg-rs:Type">Face</tag>
+<tag dir="xmp-XMP" name="mwg-rs:Regions/mwg-rs:RegionList[1]/mwg-rs:Area"/>
+<tag dir="xmp-XMP" name="mwg-rs:Regions/mwg-rs:RegionList[1]/mwg-rs:Area/stArea:h">0.384167</tag>
+<tag dir="xmp-XMP" name="mwg-rs:Regions/mwg-rs:RegionList[1]/mwg-rs:Area/stArea:unit">normalized</tag>
+<tag dir="xmp-XMP" name="mwg-rs:Regions/mwg-rs:RegionList[1]/mwg-rs:Area/stArea:w">0.24</tag>
+<tag dir="xmp-XMP" name="mwg-rs:Regions/mwg-rs:RegionList[1]/mwg-rs:Area/stArea:x">0.399375</tag>
+<tag dir="xmp-XMP" name="mwg-rs:Regions/mwg-rs:RegionList[1]/mwg-rs:Area/stArea:y">0.260417</tag>
 ```
 
 # Installation

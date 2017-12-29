@@ -40,7 +40,7 @@ metadata:read("C:\Users\andy\Desktop\russian.jpg")
 
 Additionally functions are provided to process some common tags, such as GPS information.
 
-##XMP data
+## XMP data
 
 ```xquery
 import module namespace imgmeta = "expkg-zone58:image.metadata" ;

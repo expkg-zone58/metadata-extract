@@ -8,3 +8,5 @@
  */
 
 rootProject.name = 'metadata-extract'
+
+//include('lib')

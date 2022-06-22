@@ -1,8 +1,9 @@
 /*
  * BaseX Metadata-extract interface
+ * provides: xmp(inputstream)
  * @author andy bunce
  * @copyright Quodatum Ltd
- * @date 2017
+ * @date 2022
  * @licence Apache 2
  */
 package org.expkgzone58.image;
@@ -19,10 +20,10 @@ import org.basex.query.value.ValueBuilder;
 import org.basex.query.value.item.B64Lazy;
 import org.basex.query.value.node.FElem;
 
-import com.adobe.xmp.XMPException;
-import com.adobe.xmp.XMPIterator;
-import com.adobe.xmp.XMPMeta;
-import com.adobe.xmp.properties.XMPPropertyInfo;
+import com.adobe.internal.xmp.XMPException;
+import com.adobe.internal.xmp.XMPIterator;
+import com.adobe.internal.xmp.XMPMeta;
+import com.adobe.internal.xmp.properties.XMPPropertyInfo;
 import com.drew.imaging.ImageMetadataReader;
 import com.drew.imaging.ImageProcessingException;
 import com.drew.metadata.xmp.XmpDirectory;
@@ -40,7 +41,7 @@ public class Metadata extends QueryModule {
         // Extract metadata from the image
         ByteArrayInputStream imageStream = new ByteArrayInputStream(inputStream.binary(null));
         com.drew.metadata.Metadata metadata = ImageMetadataReader.readMetadata(imageStream);
-        ValueBuilder vb = new ValueBuilder();
+        ValueBuilder vb = new ValueBuilder(queryContext);
         // Iterate through any XMP directories we may have received
         for (XmpDirectory xmpDirectory : metadata.getDirectoriesOfType(XmpDirectory.class)) {
 

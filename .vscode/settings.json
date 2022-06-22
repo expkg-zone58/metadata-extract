@@ -1,0 +1,11 @@
+{
+    "java.project.referencedLibraries": {
+        "include": [
+            "lib/**/*.jar",
+            "src/main/content/metadata-extractor-2.18.0.jar",
+            "src/main/content/xmpcore-6.1.11.jar"
+        ],
+        "exclude": []
+    },
+    "java.configuration.updateBuildConfiguration": "automatic"
+}

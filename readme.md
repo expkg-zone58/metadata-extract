@@ -83,3 +83,9 @@ Basex 8.9+ requires metadata-extractor-1.2.x.xar +
 
 # Tests
 The `test.xqm` script uses the BaseX [Unit module](http://docs.basex.org/wiki/Unit_Module)
+
+# build
+
+```
+jar -cvfm bin/xx.jar manifest.MF 
+```

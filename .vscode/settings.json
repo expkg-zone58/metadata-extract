@@ -11,6 +11,6 @@
     "java.configuration.updateBuildConfiguration": "automatic",
     "java.project.exportJar.targetPath": "${workspaceFolder}/X${workspaceFolderBasename}.jar",
     "java.dependency.packagePresentation": "hierarchical",
-    "maven.view": "hierarchical"
+    "maven.view": "flat"
   
 }

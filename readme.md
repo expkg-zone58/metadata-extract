@@ -79,7 +79,7 @@ It can be installed into the BaseX repository by executing:
 ```
 
 # Versions
-Basex 8.9+ requires metadata-extractor-1.2.x.xar +
+Basex 9.7+ requires metadata-extractor-1.3.x.xar +
 
 # Tests
 The `test.xqm` script uses the BaseX [Unit module](http://docs.basex.org/wiki/Unit_Module)

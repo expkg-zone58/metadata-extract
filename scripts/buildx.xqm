@@ -27,17 +27,28 @@ declare namespace pkg="http://expath.org/ns/pkg";
 declare %updating  function write-xqdoc($path,$src,$dest){
   let $url:=fn:resolve-uri( $path,$src)
   let $type:=fetch:content-type($url)
- 
   return  switch($type)
     case "application/xquery"
       return file:write(
           fn:resolve-uri($path || ".xml",$dest),
-           inspect:xqdoc($url)
+          xqdoc($url)
          )
     default 
       return ()
 
 };
+
+(:~ xqdoc catch errors
+:)
+declare  function xqdoc($url) 
+as element(*){
+  try{
+     inspect:xqdoc($url)
+  } catch * {
+    <error/>
+  }
+};
+
 (:~ 
 : name of dist xar file eg "fred-0.1.0.xar"
 :)

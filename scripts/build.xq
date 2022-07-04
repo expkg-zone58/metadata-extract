@@ -4,7 +4,7 @@
 declare namespace pkg="http://expath.org/ns/pkg";
 import module namespace build = "quodatum.utils.build" at "buildx.xqm";
 declare variable $base:=resolve-uri("../");
-declare variable $res:=resolve-uri("../src/main/xar/");
+declare variable $res:=resolve-uri("../target/xar/");
 declare variable $dest:=resolve-uri("../dist/");
 
 (:~ 

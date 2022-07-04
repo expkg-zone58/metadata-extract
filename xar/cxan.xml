@@ -1,9 +1,0 @@
-<package xmlns="http://cxan.org/ns/package" id="metadata-extract">
-    <abstract>Extract image metadata as XML using the Drew Noakes library</abstract>
-    <author id="drewnoakes">Drew Noakes</author>
-    <maintainer id="abunce">Andy Bunce</maintainer>
-    <home>https://drewnoakes.com/code/exif/</home>
-    <category id="libs">Library</category>
-    <tag>image</tag>
-    <tag>metadata</tag>
-</package>

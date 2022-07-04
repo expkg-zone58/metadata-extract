@@ -1,7 +1,7 @@
 <package xmlns="http://expath.org/ns/pkg"
          name="http://expkg-zone58.github.io/metadata-extractor"
          abbrev="metadata-extractor"
-         version="1.3.2"
+         version="1.3.0"
          spec="1.0">
 
    <title>Extract image metadata as XML using the Drew Noakes library.</title>

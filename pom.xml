@@ -6,6 +6,9 @@
   <version>1.3.2</version>
 
   <properties>
+    <basex.version>9.7.3</basex.version>
+    <drew.version>2.18.0</drew.version>
+    <xmp.version>6.1.11</xmp.version>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -17,7 +20,7 @@
     <dependency>
       <groupId>org.basex</groupId>
       <artifactId>basex</artifactId>
-      <version>9.7.2</version>
+      <version>${basex.version}</version>
       <scope>provided</scope>
     </dependency>
 
@@ -25,14 +28,14 @@
     <dependency>
       <groupId>com.drewnoakes</groupId>
       <artifactId>metadata-extractor</artifactId>
-      <version>2.18.0</version>
+      <version>${drew.version}</version>
     </dependency>
 
     <!-- https://mvnrepository.com/artifact/com.adobe.xmp/xmpcore -->
     <dependency>
       <groupId>com.adobe.xmp</groupId>
       <artifactId>xmpcore</artifactId>
-      <version>6.1.11</version>
+      <version>${xmp.version}</version>
     </dependency>
 
     <dependency>
@@ -71,7 +74,9 @@
       </resource>
     </resources>
     <finalName>basex-drew-${project.version}</finalName>
+
     <plugins>
+
       <plugin>
         <!-- compile -->
         <groupId>org.apache.maven.plugins</groupId>
@@ -83,22 +88,23 @@
       </plugin>
 
       <plugin>
-        <!-- copy dependancies to lib -->
+        <!-- copy dependancies to xar/content -->
         <artifactId>maven-dependency-plugin</artifactId>
         <executions>
           <execution>
-            <phase>install</phase>
+            <?m2e execute onConfiguration,onIncremental?>
+            <phase>validate</phase>
             <goals>
               <goal>copy</goal>
             </goals>
             <configuration>
-              <outputDirectory>${project.build.directory}/xar/content</outputDirectory>
+              <outputDirectory>${project.build.directory}/xar/content/</outputDirectory>
               <artifactItems>
                 <artifactItem>
                   <groupId>com.drewnoakes</groupId>
                   <artifactId>metadata-extractor</artifactId>
                 </artifactItem>
-                
+
                 <artifactItem>
                   <groupId>com.adobe.xmp</groupId>
                   <artifactId>xmpcore</artifactId>
@@ -110,9 +116,22 @@
         </executions>
       </plugin>
 
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>3.2.0</version>
+        <configuration>
+          <outputDirectory>${project.build.directory}/xar/</outputDirectory>
+          <resources>
+            <resource>
+              <directory>src/main/xar</directory>
+            </resource>
+          </resources>
+        </configuration>
+      </plugin>
 
       <plugin>
-        <!-- run basex script -->
+        <!-- run basex script https://www.mojohaus.org/exec-maven-plugin/ -->
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
         <version>1.2.1</version>
@@ -126,13 +145,32 @@
               <arguments>
                 <argument>/C</argument>
                 <argument>basex.bat</argument>
-                <argument>scripts/build.xq"</argument>
+                <argument>scripts/build.xq</argument>
               </arguments>
             </configuration>
             <goals>
               <goal>exec</goal>
             </goals>
           </execution>
+
+          <execution>
+            <id>execution1</id>
+            <phase>integration-test</phase>
+            <configuration>
+              <executable>cmd</executable>
+              <workingDirectory></workingDirectory>
+              <arguments>
+                <argument>/C</argument>
+                <argument>basex.bat</argument>
+                <argument>-t</argument>
+                <argument>src/test/xquery</argument>
+              </arguments>
+            </configuration>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+          </execution>
+
         </executions>
       </plugin>
 
@@ -144,11 +182,7 @@
         <version>3.2.0</version>
         <configuration>
           <archive>
-            <manifest>
-              <addClasspath>true</addClasspath>
-              <classpathPrefix>lib/</classpathPrefix>
-              <mainClass>com.mycompany.app.App</mainClass>
-            </manifest>
+            <addMavenDescriptor>false</addMavenDescriptor>
           </archive>
         </configuration>
       </plugin>
@@ -178,7 +212,7 @@
 
   </build>
 
-   <distributionManagement>
+  <distributionManagement>
     <repository>
       <id>internal.repo</id>
       <name>Internal repo</name>

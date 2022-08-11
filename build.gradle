@@ -1,0 +1,43 @@
+plugins {
+  id "java"
+}
+
+repositories {
+  mavenCentral()
+  maven {
+    url "https://files.basex.org/maven"
+  }
+}
+
+def basexVersion = System.getenv('BASEX_VERSION') ?: "9.7.3"
+
+dependencies {
+  runtimeOnly "org.basex:basex:${basexVersion}"
+}
+
+defaultTasks "test"
+
+System.setProperty("org.basex.path", "${projectDir}") // BaseX home directory set to project location
+
+task testXQuery(type: JavaExec) {
+  description "Run all XQuery Unit Tests in BaseX"
+  classpath configurations.runtimeClasspath
+  mainClass = "org.basex.BaseX"
+  systemProperties System.getProperties()
+  args "-t", file(".")
+}
+
+test.dependsOn "testXQuery"
+
+
+task basex {
+  description "Run BaseX GUI"
+  doLast {
+    ant.java(
+        fork: true, 
+        spawn: true, 
+        classpath: configurations.runtimeClasspath.asPath, 
+        classname: "org.basex.BaseXGUI",
+        clonevm: true)
+  }
+}

@@ -31,8 +31,9 @@ jobs:
           JOB_CONTEXT: ${{ toJson(job) }}
         run: echo "$JOB_CONTEXT"
       - name: install basex
-        run |
-          curl https://files.basex.org/releases/9.7.3/BaseX973.zip | jar xv
-          /basex/bin/basex -t foo
+        run curl https://files.basex.org/releases/9.7.3/BaseX973.zip | jar xv
+
+
+
 
 

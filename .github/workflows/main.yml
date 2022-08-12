@@ -25,13 +25,15 @@ jobs:
           distribution: 'adopt'
           architecture: x64
       - name: Display the path
-        run: echo $PATH
+        run: pwd
       - name: Dump job context
         env:
           JOB_CONTEXT: ${{ toJson(job) }}
         run: echo "$JOB_CONTEXT"
       - name: install basex
         run: curl https://files.basex.org/releases/9.7.3/BaseX973.zip | jar xv
+      - name: run tests
+        run: /basex/bin/basex -t metadata-extract/
 
 
 

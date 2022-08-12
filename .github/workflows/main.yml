@@ -24,16 +24,18 @@ jobs:
           java-version: ${{ matrix.java }}
           distribution: 'adopt'
           architecture: x64
+
       - name: Display the path
         run: pwd
+
       - name: Dump job context
-        env:
-          JOB_CONTEXT: ${{ toJson(job) }}
-        run: echo "$JOB_CONTEXT"
+        run: ls -l
+
       - name: install basex
         run: curl https://files.basex.org/releases/9.7.3/BaseX973.zip | jar xv && chmod a+x basex/bin/*
-      - name: run tests
-        run: ./basex/bin/basex -t metadata-extract/
+      
+      - name: run basex tests
+        run: ./basex/bin/basex -t src/test
 
 
 

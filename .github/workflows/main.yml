@@ -25,14 +25,15 @@ jobs:
           distribution: 'adopt'
           architecture: x64
 
-      - name: install basex
+      - name: find basex download location
         run:
-          BASEX1=$(echo "${{ matrix.basex }}" | sed 's/\.//g')
+          BASEX1= "${{ matrix.basex }}"
+          BASEX1= ${BASEX1//.} # replace all dots
           echo "BASEX1=${BASEX1}" >> $GITHUB_ENV
           echo "${{ format('{{https://files.basex.org/releases/{0}/BaseX{1}.zip}}', matrix.basex, env.BASEX1) }}"
       
       - name: print env
-        run: echo ${{ env.BASEX1 }}
+        run: env
 
       - name: doit
         run: curl https://files.basex.org/releases/9.7.3/BaseX973.zip | jar xv && chmod a+x basex/bin/*

@@ -25,15 +25,12 @@ jobs:
           distribution: 'adopt'
           architecture: x64
 
-      - name: Display the path
-        run: pwd
-
-      - name: Dump job context
-        run: ls -l
-
       - name: install basex
         run: curl https://files.basex.org/releases/9.7.3/BaseX973.zip | jar xv && chmod a+x basex/bin/*
       
+      - name: install package
+        run: basex -c"repo install https://github.com/expkg-zone58/metadata-extract/releases/download/v1.3.5/metadata-extractor-1.3.5.xar"
+     
       - name: run basex tests
         run: ./basex/bin/basex -t src/test
 

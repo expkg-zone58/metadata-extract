@@ -27,7 +27,7 @@ jobs:
       - name: determine BaseX download location
         shell: bash
         run: |
-          BASEX1= "${{ matrix.basex }}"
+          BASEX1={{ matrix.basex }}
           BASEX1= ${BASEX1//.} # replace all dots
           echo "BASEX1=${BASEX1}" >> $GITHUB_ENV
           echo "${{ format('{{https://files.basex.org/releases/{0}/BaseX{1}.zip}}', matrix.basex, env.BASEX1) }}"

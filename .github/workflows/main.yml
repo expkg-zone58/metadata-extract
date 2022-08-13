@@ -1,4 +1,4 @@
-name: Unit tests
+name: Unit tests BaseX
 
 on: 
   workflow_dispatch:  
@@ -12,11 +12,12 @@ jobs:
     env:
       BASEX_VERSION: ${{ matrix.basex }}
       BASEX_S: ${{ matrix.basex }}
-      GITHUB_CONTEXT: ${{ toJSON(github) }}
+
     strategy:
       matrix:
         java: ["8"]
         basex: ["9.7.3"]
+
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-java@v3
@@ -26,6 +27,9 @@ jobs:
           architecture: x64
 
       - name: install basex
+        env:
+          BASEX_URL: https://files.basex.org/releases/${{ matrix.basex }}/BaseX${{ echo $matrix.basex | sed "s/\.//g"}}.zip
+        run: echo ${{ BASEX_URL }}
         run: curl https://files.basex.org/releases/9.7.3/BaseX973.zip | jar xv && chmod a+x basex/bin/*
       
       - name: install package

@@ -27,11 +27,10 @@ jobs:
 
       - name: install basex
         run:
-          BASEX1=$(echo "${{ matrix.basex }}" | sed 's/\.//')
+          BASEX1=$(echo "${{ $BASEX_VERSION }}" | sed 's/\.//')
           echo "BASEX1=$BASEX1" >> $GITHUB_ENV
           echo format('{{https://files.basex.org/releases/{0}BaseX{1}.zip}}', $BASEX_VERSION, $BASEX1)
-
-        run: curl https://files.basex.org/releases/9.7.3/BaseX973.zip | jar xv && chmod a+x basex/bin/*
+          curl https://files.basex.org/releases/9.7.3/BaseX973.zip | jar xv && chmod a+x basex/bin/*
       
       - name: install package
         run: ./basex/bin/basex -c"repo install https://github.com/expkg-zone58/metadata-extract/releases/download/v1.3.5/metadata-extractor-1.3.5.xar"

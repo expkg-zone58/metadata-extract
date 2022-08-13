@@ -11,7 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       BASEX_VERSION: ${{ matrix.basex }}
-      BASEX_S: ${{ matrix.basex }}
 
     strategy:
       matrix:
@@ -27,9 +26,11 @@ jobs:
           architecture: x64
 
       - name: install basex
-        env:
-          BASEX_URL: https://files.basex.org/releases/${{ matrix.basex }}/BaseX${{ echo $matrix.basex | sed "s/\.//g"}}.zip
-        run: echo ${{ BASEX_URL }}
+        run:
+          BASEX1=$(echo "${{ matrix.basex }}" | sed 's/\.//')
+          echo "BASEX1=$BASEX1" >> $GITHUB_ENV
+          echo format('{{https://files.basex.org/releases/{0}BaseX{1}.zip}}', $BASEX_VERSION, $BASEX1)
+
         run: curl https://files.basex.org/releases/9.7.3/BaseX973.zip | jar xv && chmod a+x basex/bin/*
       
       - name: install package

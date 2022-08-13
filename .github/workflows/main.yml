@@ -28,8 +28,8 @@ jobs:
       - name: install basex
         run:
           BASEX1=$(echo "${{ matrix.basex }}" | sed 's/\.//')
-          echo "BASEX1=$BASEX1" >> $GITHUB_ENV
-          echo "${{ format('{{https://files.basex.org/releases/{0}/BaseX{1}.zip}}', matrix.basex, $BASEX1) }}"
+          echo "BASEX1=${BASEX1}" >> $GITHUB_ENV
+          echo "${{ format('{{https://files.basex.org/releases/{0}/BaseX{1}.zip}}', matrix.basex, env.BASEX1) }}"
 
       - name: doit
         run: curl https://files.basex.org/releases/9.7.3/BaseX973.zip | jar xv && chmod a+x basex/bin/*
